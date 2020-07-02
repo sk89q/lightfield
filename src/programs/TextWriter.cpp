@@ -77,20 +77,10 @@ bool TextWriter::render()
 
 void TextWriter::readConfig(StaticJsonDocument<FILE_CONFIG_CAPACITY> &doc)
 {
-  this->setColor(doc["writerR"], doc["writerG"], doc["writerB"]);
-  this->setInterval(doc["writerInterval"]);
-  this->setRepeat(doc["writerRepeat"]);
-  this->write(doc["writerText"] ? doc["writerText"].as<char *>() : "");
 }
 
 void TextWriter::writeConfig(StaticJsonDocument<FILE_CONFIG_CAPACITY> &doc)
 {
-  doc["writerR"] = this->r;
-  doc["writerG"] = this->g;
-  doc["writerB"] = this->b;
-  doc["writerInterval"] = this->interval;
-  doc["writerRepeat"] = this->repeat;
-  doc["writerText"] = this->text.c_str();
 }
 
 void TextWriter::registerRoutes(ESP8266WebServer *webServer, FileConfig *config)
@@ -121,7 +111,6 @@ void TextWriter::registerRoutes(ESP8266WebServer *webServer, FileConfig *config)
       this->write(webServer->arg("text").c_str());
     }
 
-    config->save();
     webServer->send(200, "text/plain", "");
   });
 }

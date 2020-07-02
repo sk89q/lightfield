@@ -42,12 +42,10 @@ bool Multiplexer::render()
 
 void Multiplexer::readConfig(StaticJsonDocument<FILE_CONFIG_CAPACITY> &doc)
 {
-  this->select(doc["mplexChoice"] ? doc["mplexChoice"].as<char *>() : "");
 }
 
 void Multiplexer::writeConfig(StaticJsonDocument<FILE_CONFIG_CAPACITY> &doc)
 {
-  doc["mplexChoice"] = this->selectedKey.c_str();
 }
 
 void Multiplexer::registerRoutes(ESP8266WebServer *webServer, FileConfig *config)
@@ -58,7 +56,6 @@ void Multiplexer::registerRoutes(ESP8266WebServer *webServer, FileConfig *config
 
   webServer->on("/api/v1/program/", HTTP_POST, [this, webServer, config]() {
     this->select(webServer->arg("program").c_str());
-    config->save();
     webServer->send(200, "text/plain", "");
   });
 }
