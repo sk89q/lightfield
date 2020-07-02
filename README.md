@@ -9,9 +9,13 @@ This is an Arduino program that lets you control NeoPixels / WS2812 strips over 
 * Supports switching between multiple programs.
 * Saves your settings to flash memory.
 
-## Status
+## Installation
 
-Not done. Still merging my other WS2812 programs into this one.
+```bash
+platformio lib install FastLED
+platformio lib install "FastLED NeoMatrix"
+platformio lib install "ArduinoJson"
+```
 
 ## Client Example
 
